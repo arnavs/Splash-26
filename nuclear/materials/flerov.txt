@@ -1,0 +1,74 @@
+  Claude Code v2.1.311
+  Opus 5.5 with high effort · Claude Max
+  ~/Documents/splash-26/nuclear/syllabus
+
+
+❯ can you translate and find flerov's letter to stalin (see biblioatom.ru)
+
+⏺ Web Search("Флёров письмо Сталину 1942 biblioatom")
+Did 1 search in 4s
+
+⏺ Web Search("biblioatom.ru Флеров письмо Сталину апрель 1942 урановая проблема")
+Did 1 search in 5s
+
+  Ran 3 shell commands
+
+Still searching: I've pulled biblioatom.ru's document index and am now looking for the Flerov entry.
+
+  Ran 6 shell commands
+
+Found Flerov's page on biblioatom; it links to his 1993 memoir "Начальный этап…" (the initial stage), which probably contains the letter. Checking it now.
+
+  Ran 1 shell command
+
+Биболиатом содержит том 13 «История атомного проекта» (ИАЭ им. Курчатова, 1998), где письмо Флерова Сталину от апреля 1942 года напечатано со стр. 66. Сейчас открываю эти страницы.
+
+  Ran 4 shell commands
+
+The page text is loaded via JS, so I'll go straight to the scanned page images instead and read them directly.
+
+  Read 2 files, ran 2 shell commands
+
+Found it — page 66 is the start of the letter. Reading the following pages.
+
+  Read 2 files
+
+I found the letter on biblioatom.ru. It isn't in the site's "Documents" section or in the main Атомный проект СССР collection. It's printed in «Из истории атомного проекта», вып. 13 (Kurchatov Institute, 1998), as document No. 8, pp. 66–67, under the heading «Г.Н. Флеров И.В. Сталину». Pages 68 and on are photographs of the handwritten original.
+
+- Page: https://elib.biblioatom.ru/text/kiae-istoriya-atomnogo-proekta_v13_1998/66/
+- Archive reference: Archive of the Kurchatov Institute, fond 1, opis 1s, item 1, sheets 18–21. The editors describe it as a draft in Flerov's own handwriting, and it isn't dated.
+
+I translated from the printed Russian text, not the handwriting.
+
+---
+
+G. N. Flerov to I. V. Stalin
+
+April 1942, Yoshkar-Ola
+
+Dear I.V.,
+
+It has now been 10 months since the war began, and all this time I have truly been in the position of a man trying to break through a stone wall with his head.
+
+Where am I going wrong?
+
+Am I overestimating the importance of the "uranium problem"? No, that isn't true. The only thing that makes the uranium projects look fantastic is how much they promise if the problem is solved. But that promise can only scare off two kinds of people. Some are afraid of anything unusual or out of the ordinary. Others have had bad experiences with inflated, hot-air proposals. Once burned by hot milk, they now blow on water.
+
+I have to admit from the start that I may be wrong. Scientific work always involves risk, and with uranium the risk is greater than in any other field. In my letter to Comrade Kaftanov I put the chance of success at 10–20%, and that figure is certainly not too low. But imagine for a minute that "uranium" works. True, it won't cause a revolution in technology generally; the work of the last months before the war makes me confident of that. But in military technology there will be a real revolution. It will happen without us, and we will pay dearly for that. The only reason is that in the scientific world, now as before, inertia thrives.
+
+Do you know, Iosif Vissarionovich, the main argument now being made against uranium? "It would be too good if the problem could be solved. Nature rarely spoils man." So give me the chance to show that the real difference between man and animal is this: man can overcome difficulties and wrest from nature everything he needs.
+
+Perhaps, being at the front, I have lost all sense of what we should be working on. Perhaps science, and hard problems like uranium, should wait until after the war. That is what Academician A. F. Ioffe thinks, and he is deeply mistaken. In some areas of physics we managed to reach the level of foreign scientists, and in places we even got ahead of them. It seems to me we are now making a great mistake by giving up those positions of our own accord. In a year or two we will fall so far behind that even Academician Ioffe will give up in the face of the difficulties, when the time comes to return from military inventions to fundamental problems. The greatest follies are committed with the best intentions. We all want to do everything possible to destroy the fascists. But we must not rush into working only on questions that fit the definition of "urgent" military tasks.
+
+Finally, perhaps I am taking too much on myself. K. A. Petrzhak and I happened to enter the circle of academic scientists thanks to our work on spontaneous fission, which is now left hanging in the air. When the war began, we were knocked off the track of scientific work. We were both mobilized. We both tried to mention that we were scientists, and we both stayed in the army. That happened because at that very moment both institutes where we worked, the Radium Institute and the Physico-Technical Institute, fell silent. As a result, nobody petitioned for us as people doing necessary and useful work. K. A. Petrzhak is a junior lieutenant and I am a technician-lieutenant. We fight, we work, and we try to do both as well as we can. But even now, in the hard conditions of war and 10 months behind, we could still do a great deal in this field.
+
+All the letters you receive, Iosif Vissarionovich, fall into two groups. The first contains proposals that, in their authors' opinion, could help in the fight against the fascists. The second contains similar proposals, except that carrying them out would also change the author's own situation. It is very hard for me to write knowing that this letter can fairly be met with a "sober" response: "What is Flerov raging about? He did science, ended up in the army, and wants to scramble out. So he uses uranium to bombard everyone and everything and speaks badly of academicians, all for the most selfish personal reasons."
+
+So, to settle the question, I ask you to convene a meeting of:
+- Academicians Ioffe, Fersman, Vavilov, Khlopin and Kapitsa
+- Leipunsky, Academician of the Ukrainian Academy of Sciences
+- Professors Landau, Alikhanov, Artsimovich, Frenkel, Kurchatov, Khariton and Zeldovich
+- Doctors Migdal and Gurevich
+- ideally K. A. Petrzhak as well.
+
+I ask for 1 hour 30 minutes for my report. Iosif Vissarionovich, I very much hope that you will attend, openly or not, or someone standing in for you. Generally speaking, this is no time for scientific tournaments like this. But I see it as the only way to prove I am right and to win the right to work on uranium. Other approaches, such as personal talks with A. F. Ioffe and the letter to Comrade Kaftanov*, get nowhere and are simply met with silence. I received no answer to my letter and five telegrams to Comrade Kaftanov. When the Academy of Sciences' plan was discussed, they probably talked about anything except uranium. That is the wall of silence I hope you will help me break through. This letter is my last; after it I lay down my arms and wait for scientists abroad to solve the problem**…

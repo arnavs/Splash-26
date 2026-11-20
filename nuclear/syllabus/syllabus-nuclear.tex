@@ -1,0 +1,98 @@
+\documentclass[10pt,oneside]{amsart}
+\usepackage[bottom=1.5cm,right=1.5cm,left=1.5cm,top=1.5cm,includefoot]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts,amssymb,amsthm,amsmath,mathtools}
+\usepackage[shortlabels]{enumitem}
+\usepackage{newpxtext}
+\usepackage[round]{natbib}
+\usepackage{microtype}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=black]{hyperref}
+
+\linespread{1.25}
+\setlength{\parskip}{3pt}
+\setlength{\emergencystretch}{1em}
+\setlist[enumerate]{itemsep=2pt,topsep=3pt}
+
+%% Notation retained from the base draft, with additional set notation.
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\aff}{aff}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\co}{\operatorname{co}}
+\newcommand{\cl}{\operatorname{cl}\,}
+\newcommand{\supp}{\operatorname{supp}\,}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\BN}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\pto}{\overset{p}{\longrightarrow}}
+\newcommand{\hto}{\overset{h}{\longrightarrow}}
+\newcommand{\Stable}{\mathcal{C}}
+\newcommand{\Discrete}{\mathcal{D}}
+\newcommand{\BP}{\operatorname{BP}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Exp}{\mathcal{E}}
+\newcommand{\Opt}{\mathcal{S}}
+\newcommand{\ubar}{\overline U}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\red}{\color{red}}
+\newcommand{\black}{\color{black}}
+\newcommand{\skep}[1]{\textbf{\red #1}}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{Assumption}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+\title{X16580: Nuclear Weapons: Theory and Practice}
+\author{Arnav Sood}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\subsection*{Course Overview} Humanity's childhood as a species ended with its first nuclear explosion. More than any other, these devices represent us: our delight in our "new [physical] powers," and our "Promethean guilt" at the recognition that these powers would inevitably turn to violence, as "all our ways are rooted in it."\footnote{To quote \href{http://large.stanford.edu/courses/2016/ph241/anderson1/}{\tt J.R. Oppenheimer}.}
+
+The twelve thousand or so nuclear weapons strewn about the planet are doing things, even while dormant. But what are they doing? What physical, moral and strategic principles undergird their operation? What's the difference between a thermonuclear device and a pure fission weapon; is there truly such a thing as a "tactical nuke,"; is the US nuclear launch authority sensible; did the NPT and CTBT make us safer; and what's the point of the nuclear triad? How were these things made, and how could they be unmade?
+
+This class is an attempt to explore these questions. One third of the time will be spent on the physics, and the rest will be spent on the game theory and strategic concerns.
+
+We will not answer all of these questions, but we all live within range of a nuclear ICBM, and you will leave with a much better understanding of them.
+
+\subsection*{Instructor} I am a PhD student in Economics at \href{https://www.cmu.edu}{Carnegie Mellon} and a data scientist at \href{https://www.reveliolabs.com}{Revelio Labs}.
+\begin{itemize}
+      \item Contact: \href{mailto:X16580-teachers@esp.mit.edu}{\tt X16580-teachers@esp.mit.edu}
+\end{itemize}
+
+\subsection*{Prerequisites} There aren't any formal prerequisites. That said, most of the material comes from \cite{rhodes1986making}. I would also recommend checking out the \href{https://www.ans.org/nuclear/navigatingnuclear/classresources/highschool/}{American Nuclear Society} high school resources for an overview on nuclear phsyics.
+
+\subsection*{Resources and Further Reading} Here are some other things worth reading and thinking about:
+
+\begin{itemize}
+
+      \item Government Sources
+            \subitem \href{https://tile.loc.gov/storage-services/master/gdc/gdcebookspublic/20/20/43/52/29/2020435229/2020435229.pdf}{Nuclear Strategy: The Jim King Manuscripts} (US CIA)
+            \subitem \href{https://wipp.info/921382.pdf}{Expert Judgment on Markers to Deter Inadvertent Human Intrusion into the Waste Isolation Pilot Plant} (US Sandia NL)
+            \subitem \href{https://nsarchive.gwu.edu/document/17309-document-09-kgb-headquarters-moscow}{Permanent Operational Assignment to Uncover NATO Preparations for a Nuclear Missile Attack on the USSR} (USSR KGB)
+            \subitem \href{https://www.cia.gov/readingroom/docs/1974-05-01.pdf}{Evolution of Soviet Concepts and Forces for Nuclear War in Europe} (US CIA)
+      \item Scientists
+            \subitem Sakharov: \href{https://scienceandglobalsecurity.org/archive/sgs01sakharov.pdf}{Radioactive Carbon from Nuclear Explosions and Nonthreshold Biological Effects}
+            \subitem Teller: \href{https://nsarchive2.gwu.edu/coldwar/interviews/episode-8/teller1.html}{Public Interview}
+            \subitem Einstein and Szilard: \href{http://www.fdrlibrary.marist.edu/archives/pdfs/docsworldwar.pdf}{Letter to Franklin Roosevelt}
+            \subitem Flerov: \href{https://gist.githubusercontent.com/arnavs/f8de3e483383617ecf9179c2f2a81414/raw/faaa6df63f834965323cbb18232e39ee61c58693/flerov.txt}{Letter to Josef Stalin}
+      \item Strategists
+            \subitem Sokolovsky: \href{https://www.rand.org/content/dam/rand/pubs/reports/2005/R416.pdf}{Soviet Military Strategy}
+            \subitem Schelling: \href{https://www.nobelprize.org/uploads/2018/06/advanced-economicsciences2005.pdf}{2005 Nobel Committee Prize Information}, \href{https://www.jstor.org/stable/j.ctt5vm52s}{Arms and Influence} and \href{https://www.nobelprize.org/uploads/2018/06/schelling-lecture.pdf}{Nobel Lecture}
+            \subitem Kissinger: \href{https://api.pageplace.de/preview/DT0400.9780429696350_A37701777/preview-9780429696350_A37701777.pdf}{Nuclear Weapons and Foreign Policy}, \href{https://www.henryakissinger.com/articles/our-nuclear-nightmare/}{Our Nuclear Nightmare}
+      \item Fiction
+            \subitem By \href{https://ia801405.us.archive.org/10/items/HeliganSecretsOfTheLostGardens/AsimovIsaac-CompleteStories-Volume1.pdf}{Asimov} (in particular ``Breeds There a Man'' and ``In a Good Cause-'')
+            \subitem By \href{https://en.wikipedia.org/wiki/Dr._Strangelove}{Kubrick}
+\end{itemize}
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+
+\end{document}
