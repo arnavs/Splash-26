@@ -1,0 +1,92 @@
+## trinity  [Trinity Detonation]
+Trinity Test Fireball 16ms.jpg
+Trinity Detonation T&B.jpg
+Trinity Detonation T&B (cropped).jpg
+Oppenheimer and Groves at the Trinity detonation site.jpg
+Trinity Test Fireball 53ms.jpg
+Trinity test.ogv
+
+## hiroshima  [Hiroshima atomic bomb cloud]
+Atomic cloud over Hiroshima.jpg
+Hiroshima Atomic Bombing Photo Newly Discovered.jpg
+Atomic cloud over Hiroshima - NARA 542192 - Edit.jpg
+Atomic cloud over Hiroshima (cropped1to1).jpg
+Pyrocumulonimbus cloud over Hiroshima, near local noon. Aug 6 1945.jpg
+Atomic bombing of Japan.jpg
+
+## littleboy  [Little Boy atomic bomb]
+Atombombe Little Boy 2.jpg
+Littleboy inner1 info.png
+Little Boy bomb.jpg
+Little Boy being raised for loading into the Enola Gay's bomb bay.jpg
+Little-boy-atom-bomb.svg
+Photograph of Atomic Bomb Preparations at Tinian Island - DPLA - d200ecfb73d118ee3b6ee223f37d2fca.jpg
+
+## fatman  [Fat Man atomic bomb]
+Fat Man (replica of nuclear bomb).jpg
+Fat Man Assembled Tinian 1945.jpg
+Fat Man names on bomb.jpg
+\
+Full-size model of the Fat Man atomic bomb, Nagasaki Atomic Bomb Museum, April 2015.jpg
+Ramsey signs the Fat man.jpg
+
+## ivymike  [Ivy Mike explosion]
+The explosion of the hydrogen bomb Ivy Mike.jpg
+Ivy Mike - Elugelab pt2.jpg
+Ivy Mike 36\u043c\u0441\u0435\u043a \u043c\u043e\u043b\u043d\u0438\u0438.JPG
+Ivy Mike 001.jpg
+Ivy Mike Sausage device.jpg
+Ivy explosion.JPG
+
+## castlebravo  [Castle Bravo blast]
+Castle Bravo Blast.jpg
+The bravo - a tale (IA bravotale00coop).pdf
+Comparative nuclear fireball sizes-fr.svg
+Comparative nuclear fireball sizes.svg
+DEH digest - USACE-p16021coll8-4146.pdf
+The works of James Fenimore Cooper (IA worksofjamesfeni07coop).pdf
+
+## tsarbomba  [Tsar Bomba]
+Ivan 2004-09-07 1945Z.jpg
+Tsar Bomba Revised.jpg
+Tsar Bomba fireball 1961.jpg
+Tsar Bomba Paris.png
+Tsar Bomba.JPG
+Aivazovsky, Ivan - The Ninth Wave.jpg
+
+## minuteman  [Minuteman III launch]
+
+
+## trident  [Trident II missile launch]
+
+
+## b52  [B-52 Stratofortress flight]
+
+
+## davycrockett  [Davy Crockett M388]
+
+
+   minuteman  <-  https://upload.wikimedia.org/wikipedia/commons/f/fe/LGM-30-Minuteman-II.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled
+   trident  <-  https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/Trident_II_missile_image.jpg/1920px-Trident_II_missile_image.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail
+   b52  <-  https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/B-52_Stratofortress_assigned_to_the_307th_Bomb_Wing_%28cropped%29.jpg/1920px-B-52_Stratofortress_assigned_to_the_307th_Bomb_Wing_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail
+   davycrockett  <-  https://upload.wikimedia.org/wikipedia/commons/4/43/DavyCrockettBomb.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled
+   tsarbomba.jpg  <-  Tsar_Bomba_fireball_1961.jpg
+   tsarbomba-cloud.jpg  <-  Tsar_Bomba_Revised.jpg
+   mirv  <-  https://upload.wikimedia.org/wikipedia/commons/7/7c/W87_MX_Missile_schematic.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled
+   schelling  <-  https://upload.wikimedia.org/wikipedia/commons/b/b7/Thomas_C._Schelling_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled
+   cuba  <-  https://upload.wikimedia.org/wikipedia/commons/8/8a/PGM-19A_Jupiter_missile-02.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled
+   arkhipov  <-  https://upload.wikimedia.org/wikipedia/commons/5/53/Vasili_Arkhipov_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled
+   petrov  <-  https://upload.wikimedia.org/wikipedia/commons/6/67/Stanislaw-jewgrafowitsch-petrow-2016.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled
+   berlin  <-  https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/U.S._Army_Berlin_Brigade_patch.svg/1920px-U.S._Army_Berlin_Brigade_patch.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail
+   wipp  <-  https://upload.wikimedia.org/wikipedia/commons/b/bb/Pictogram_for_nuclear_sites%2C_US_Department_of_Energy%2C_2004.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled
+   cloudchamber  <-  https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/CTRwilsonCloudChamberCavendishLab2013-08-29-17-09-40.jpg/1920px-CTRwilsonCloudChamberCavendishLab2013-08-29-17-09-40.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail
+   radiumdial  <-  https://upload.wikimedia.org/wikipedia/commons/8/88/Radium_Dial.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled
+## cloudchamber-alt  [cloud chamber particle tracks]
+Particle Tracks in AWAN Expansion Cloud Chamber.jpg
+Alpha particle detected in an isopropanol cloud chamber.jpg
+Nuclear particle in a diffusion cloud chamber.png
+Radium hands in a cloud chamber (alpha particles).png
+Alpha particle and electrons from a thorium rod in a cloud chamber.jpg
+Schematic diagram of Nevill Mott's model for alpha particle excitation of bubbles in a cloud chamber.png
+
+   cloudchamber.jpg  <-  Cloud_chamber_bionerd.jpg
