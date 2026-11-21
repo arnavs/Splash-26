@@ -1,0 +1,152 @@
+% !TeX program = lualatex
+\documentclass[
+	american,
+	sections numbered,
+	usenames,
+	xcolor=dvipsnames,
+	aspectratio=169,
+]{beamer}
+\usepackage[round]{natbib}
+\hypersetup{
+    colorlinks,
+    citecolor=blue,
+    linkcolor=blue
+}
+
+\mode<presentation>
+
+\usepackage{babel}
+\usepackage[babel]{microtype}
+\usepackage[babel]{csquotes}
+\usepackage[american]{isodate}
+% \usepackage{enumitem}
+
+\usepackage[T1]{fontenc}
+\usepackage{FiraMono}
+
+\usetheme[progressbar=frametitle]{metropolis}
+
+%%% GRAPHICS %%%
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{tikz}
+
+%%% MATH & SCIENCE %%%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{siunitx}
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{mathtools}
+
+%%% FLOATS %%%
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+%\usepackage{biblatex}
+%\bibliography{literature.bib}
+
+
+\input{setup-colors.tex}
+\input{setup-beamer.tex}
+\input{setup-math.tex}
+\input{setup-plots.tex}
+
+% custom bullshit 
+\usepackage{caption}
+\usepackage{amsthm}
+\usepackage{tabularx}
+
+\newtheorem{manualtheoreminner}{Theorem}
+
+\newenvironment{manualtheorem}[1]{%
+  \renewcommand\themanualtheoreminner{#1}%
+  \manualtheoreminner
+}{\endmanualtheoreminner}
+
+\captionsetup{labelformat=empty}
+\usepackage[normalem]{ulem}
+\usepackage{etoolbox}
+\usepackage{bbm}
+\newcommand{\indicator}[1]{\mathbbm{1}\left[ {#1} \right] }
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+\def\p{\noindent \textbf{Proof: }}
+\renewcommand{\qed}{\hfill $\Box$\bigskip}
+\renewcommand{\argmax}[1]{\underset{{#1}}{\arg\,\max}}
+\renewcommand{\argmin}[1]{\underset{{#1}}{\arg\,\min}}
+\newcommand{\cav}{\text{cav }}
+\newcommand{\QED}{\hfill $\Box$\bigskip}
+
+\newcommand{\red}{\color{red}}
+\newcommand{\black}{\color{black}}
+\newcommand{\blue}{\color{blue}}
+%-------------------------------------------------
+\mathtoolsset{showonlyrefs,showmanualtags}
+
+% \DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\1}{\mathbbm{1}}
+% \usepackage{enumitem}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\pto}{\overset{p}{\to} }
+\newcommand{\hto}{\overset{h}{\to} }
+\newcommand{\BH}{\mathcal{H}}
+\newcommand{\R}{\mathbb R}
+\newcommand{\BC}{\mathbb C}
+\newcommand{\BF}{\mathbb F}
+\newcommand{\supp}{\textup{supp }}
+\newcommand{\BQ}{\mathbb Q}
+\newcommand{\BZ}{\mathbb Z}
+\newcommand{\BN}{\mathbb N}
+\newcommand{\M}{\mathcal M}
+\newcommand{\A}{\mathcal A}
+\newcommand{\X}{\mathcal X}
+\newcommand{\mub}{\underline{\mu}}
+\newcommand{\niton}{\not\owns}
+\newcommand{\as}{\overset{\text{a.s.}}{\longrightarrow}}
+\newcommand{\weak}{\rightsquigarrow}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\renewcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\P}{\mathbb{P}}
+
+%% Define indicator function
+\DeclareSymbolFont{bbold}{U}{bbold}{m}{n}
+\DeclareSymbolFontAlphabet{\mathbbold}{bbold}
+\newcommand{\cl}{\text{cl }}
+
+
+%% Define some environments
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{remark}{Remark}
+\renewcommand\theassumption{A\arabic{assumption}}
+
+\DeclareMathOperator*{\asto}{\overset{as}{\longrightarrow}}
+\DeclareMathOperator*{\dto}{\overset{d}{\leadsto}}
+
+
+\title{X16580 Nuclear Weapons: Theory and Practice}
+\author{Arnav Sood\inst{1}\inst{2}}
+\institute[]{%
+	\inst{1} Tepper School of Business, Carnegie Mellon University
+	\inst{2} Revelio Labs 
+}
+\date{MIT Splash 2026 (\today)}
+
+\titlegraphic{\includegraphics[height=.17\textheight]{logo.jpg}}
+
+\begin{document}
+
+\begin{frame}[plain]
+	\titlepage
+\end{frame}
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\input{actual-content.tex}
+
+\end{document}
