@@ -17,6 +17,20 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta}
 
+%% Small "opens a link" arrow to put after hyperlinked text.
+\newcommand{\linkarrow}{\raisebox{0.15ex}{\scalebox{0.75}{$\nearrow$}}}
+
+%% Parchment canvas with a faint Imperial (Septim) dragon emblem behind every slide.
+%% Emblem: images/imperial-emblem.png (from UESP's Imperial Legion icons), shown whole.
+%% Era cards paint over it with their screenshots.
+\definecolor{parchment}{RGB}{255,252,244}
+\setbeamercolor{background canvas}{bg=parchment}
+\setbeamertemplate{background}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[opacity=0.07, inner sep=0] at (current page.center)
+      {\includegraphics[height=0.9\paperheight, keepaspectratio]{images/imperial-emblem.png}};
+  \end{tikzpicture}}
+
 %% Dragon alphabet (Pixel Sagas "Dovahkiin" font; requires XeLaTeX).
 %% Letters map to single runes; digraph runes sit on accented capitals:
 %% Ã=ah Ä=aa È=ei Ë=ey Î=ir Ï=ii Ö=oo Ù=ur Ü=uu
@@ -24,38 +38,60 @@
 \newfontfamily\dragonfont{Dovahkiin.ttf}[Path=fonts/]
 \newcommand{\dovah}[1]{{\dragonfont #1}}
 
-%% Era title cards: a full-bleed screenshot with an in-game line over it.
-%% Drop screenshots (ideally 16:9) into images/ as <name>.jpg or <name>.png;
-%% until a file exists, a labelled placeholder is drawn instead.
-%% Images are fitted (not cropped) into the area above the caption band, on black.
-\newcommand{\shotimg}[1]{%
-  \fill[black] (current page.south west) rectangle (current page.north east);
-  \node[inner sep=0, anchor=north] at (current page.north)
-    {\includegraphics[width=\paperwidth, height=\dimexpr\paperheight-3.2cm\relax, keepaspectratio]{#1}};
-  \node[anchor=north east, font=\tiny, text=white, opacity=0.7] at ([xshift=-2pt, yshift=-2pt]current page.north east) {Image: UESP};}
-\newcommand{\shotfill}[2]{%
-  \IfFileExists{images/#1.jpg}{\shotimg{images/#1.jpg}}{%
-  \IfFileExists{images/#1.png}{\shotimg{images/#1.png}}{%
-  \fill[frost!15] (current page.south west) rectangle (current page.north east);
-  \node[align=center, font=\small, text=stone] at ([yshift=1.4cm]current page.center)
-    {\textbf{Screenshot:} #2\\[0.2em]{\scriptsize\ttfamily images/#1.jpg}};}}}
-% #1 image, #2 what the screenshot shows, #3 era label, #4 the line, #5 who says it
-\newcommand{\eracard}[5]{%
-  \begin{frame}[plain]
+%% Era slides: ordinary frames on an inverted (dark) background with a small white
+%% Imperial emblem in the top right (images/imperial-emblem-white.png). Use as
+%%   \begin{inverted}
+%%   \begin{frame}{Era: detail}
+%%     \erashot[credit]{image name}   (credit defaults to UESP)
+%%     \eracaption{caption under the image}
+%%     \eraquote[size]{the in-game line}{who says it}   (size optional, e.g. \small)
+%%   \end{frame}
+%%   \end{inverted}
+%% Drop screenshots (ideally 16:9) into images/ as <name>.jpg, .png or .pdf;
+%% until a file exists, a labelled placeholder box is drawn instead.
+\newenvironment{inverted}{%
+  \setbeamercolor{background canvas}{bg=black}%
+  \setbeamertemplate{background}{%
     \begin{tikzpicture}[remember picture, overlay]
-      \shotfill{#1}{#2}
-      \fill[black, opacity=0.65] (current page.south west) rectangle ([yshift=3.2cm]current page.south east);
-      \node[anchor=south west, text width=0.86\paperwidth, align=left, text=white]
-        at ([xshift=0.9cm, yshift=0.45cm]current page.south west)
-        {{\scriptsize\bfseries\color{ember!50!white}#3}\\[0.4em]
-         {\large\itshape #4}\\[0.4em]
-         {\small --- #5}};
-    \end{tikzpicture}
-  \end{frame}}
+      \node[anchor=north east, inner sep=0] at ([xshift=-0.4cm, yshift=-0.3cm]current page.north east)
+        {\includegraphics[height=1.1cm, keepaspectratio]{images/imperial-emblem-white.png}};
+    \end{tikzpicture}}%
+  \setbeamercolor{normal text}{fg=white}%
+  \setbeamercolor{frametitle}{fg=white}%
+  \setbeamercolor{structure}{fg=ember!60!white}%
+  \setbeamercolor{alerted text}{fg=ember!60!white}%
+  \colorlet{stone}{white!60!black}%
+  \usebeamercolor[fg]{normal text}}{}
+% \erashot[credit]{image}: the screenshot, centred (credit defaults to UESP).
+% Missing image file -> a labelled placeholder box.
+\newsavebox{\erashotbox}
+\newcommand{\erashotcredit}{}
+\newcommand{\erashot}[2][UESP]{%
+  \renewcommand{\erashotcredit}{#1}%
+  \IfFileExists{images/#2.jpg}{\sbox{\erashotbox}{\includegraphics[width=\textwidth, height=0.56\textheight, keepaspectratio]{images/#2.jpg}}}{%
+  \IfFileExists{images/#2.png}{\sbox{\erashotbox}{\includegraphics[width=\textwidth, height=0.56\textheight, keepaspectratio]{images/#2.png}}}{%
+  \IfFileExists{images/#2.pdf}{\sbox{\erashotbox}{\includegraphics[width=\textwidth, height=0.56\textheight, keepaspectratio]{images/#2.pdf}}}{%
+  \sbox{\erashotbox}{\fcolorbox{stone}{white!8!black}{\parbox[c][0.5\textheight][c]{0.8\textwidth}{\centering\small\color{stone}
+    \textbf{Screenshot missing}\\[0.2em]{\scriptsize\ttfamily images/#2.jpg}}}}}}}%
+  \par\vspace{0.4em}{\centering\usebox{\erashotbox}\par}}
+% \eracaption{text}: centred under the screenshot, on the same line as the grey credit,
+% which hangs just past the image's right edge (or past the caption, if that is wider).
+\newsavebox{\eracaptionbox}
+\newcommand{\eracaption}[1]{%
+  \sbox{\eracaptionbox}{\scriptsize #1}%
+  \dimen0=\dimexpr(\wd\eracaptionbox-\wd\erashotbox)/2\relax
+  \ifdim\dimen0<0pt \dimen0=0pt\fi
+  \par\vspace{0.1em}{\centering\makebox[\wd\erashotbox][c]{\usebox{\eracaptionbox}}%
+    \rlap{\hspace{\dimexpr\dimen0+0.6em\relax}\tiny\color{stone}Image: \erashotcredit}\par}}
+% optional first argument: text size for a long quote, e.g. \eraquote[\small]{...}{...}
+\newcommand{\eraquote}[3][]{%
+  \par\vspace{0.2em}{\centering#1
+    \textbf{#2}\\[0.3em]
+    {\small -- #3}\par}}
 % Closing line on a history slide: where this past is still alive in 4E 201.
 \newcommand{\stillhere}[1]{\par\vfill{\small\textbf{\color{ember}Still here in 4E 201:} #1}}
 
-\title{Archaeogaming: A Site Visit to Skyrim}
+\title{Archaeogaming: A Visit to Skyrim}
 \subtitle{MIT Splash 2026}
 \author{Arnav Sood}
 \date{\today}
@@ -65,17 +101,17 @@
 \begin{frame}
   \titlepage
   \begin{center}
-    \textbf{``Skyrim's harshness has a way of carving a man down to his true self''}\\[0.3em]
-    \small -- General Tullius (Imperial Legion)
+    \textbf{``When a man understands the art of seeing, he can trace the spirit of an age and the features of a king even in the knocker on a door''}\\[0.3em]
+    \small -- Victor Hugo
   \end{center}
 \end{frame}
 
 \begin{frame}
   \begin{itemize}
     \item {\color<3->{stone}\textbf{``[Ysgramor] came from the ancient homeland and killed all the elves. But not all of them, because some of them are still here.''}}
-    \item[] {\color<3->{stone}\begin{center} \small -- Farkas (Companion) \end{center}} \pause
-    \item {\color<3->{stone}\textbf{``Everything's for sale, my friend. Everything. If I had a sister, I'd sell her in a second.''}}
-    \item[] {\color<3->{stone}\begin{center} \small -- Belethor (Merchant) \end{center}} \pause
+    \item[] {\color<3->{stone}\begin{center} \small -- Farkas (Companion of Jorrvaskr) \end{center}} \pause
+    \item {\color<3->{stone}\textbf{``Skyrim's harshness has a way of carving a man down to his true self.''}}
+    \item[] {\color<3->{stone}\begin{center} \small -- General Tullius (Imperial Legion, Third Empire) \end{center}} \pause
     \item \textbf{``Nivahriin muz fen siiv nid aaz het.'' {\color{red} Cowardly men will find no mercy here}}
     \item[] {\centering\large\dovah{NIVÃRÏN MUZ FEN SÏV NID ÄZ HET}\par}
     \item[] {\begin{center} \small -- Morokei (Dragon Priest, Undead) \end{center}}
@@ -83,99 +119,111 @@
 \end{frame}
 
 % ------------------------------------------------------------------
-\begin{frame}{Today's question}
+\begin{frame}{How to Read a Ruin}
   \Large
-  Every ruin is a record of a conversation.\\[1em]
-  \normalsize
-  At each layer of the barrow, we'll ask:
   \begin{enumerate}
     \item \textbf{Who} built this, and \textbf{for whom}?
     \item \textbf{What} is it meant to convey, and how does the design show it?
     \item \textbf{What has happened} to it since?
-  \end{enumerate}
-  \vfill
-  \small\color{stone}To date what we find, we first need a timeline.
+  \end{enumerate} \pause
+  \vspace{1 em}
+  \textbf{\color{red} Ruins were not always so!}
 \end{frame}
 
 % ------------------------------------------------------------------
-\begin{frame}{The calendar of Tamriel}
+\begin{frame}[label=calendar]{The calendar of Tamriel}
   \begin{center}
     \begin{tikzpicture}[x=0.9cm,y=1cm]
       \draw[very thick, frost] (0,0) -- (14.4,0);
-      \foreach \x/\lab/\sub in {
-          1.2/Merethic Era/{Atmorans, Ysgramor, the Dragon Cult},
-          4.2/First Era/{Nordic kings, Dwemer vanish},
-          7.2/Second Era/{Interregnum, then Tiber Septim},
-          10.2/Third Era/{the Septim Empire},
-          13.2/Fourth Era/{now: 4E 201}}
+      % x position / era / how long it lasted / what happened
+      \foreach \x/\lab/\len/\sub in {
+          1.2/Merethic Era/{2,500+ years}/{Atmorans, Ysgramor, the Dragon Cult},
+          4.2/{\hyperlink{app-first}{First Era\,\linkarrow}}/{2,920 years}/{Nordic kings, Dwemer vanish, First \& Second Empires},
+          7.2/{\hyperlink{app-second}{Second Era\,\linkarrow}}/{896 years}/{Second Empire, Interregnum, then Tiber Septim},
+          10.2/Third Era/{433 years}/{Septim Empire},
+          13.2/Fourth Era/{201 years so far}/{now: 4E 201}}
         {
           \fill[ember] (\x,0) circle (3pt);
           \node[above=4pt, font=\small\bfseries, text=frost] at (\x,0) {\lab};
-          \node[below=4pt, font=\scriptsize, text=stone, text width=2.4cm, align=center] at (\x,0) {\sub};
+          \node[below=4pt, font=\scriptsize, text=stone, text width=2.4cm, align=center] at (\x,0)
+          {{\bfseries\color{frost}\len}\\[0.15em]\sub};
         }
-      \draw[thick, dashed, ember] (11.7,-0.25) -- (11.7,0.95);
-      \node[above, font=\scriptsize\bfseries, text=ember] at (11.7,0.95) {\href{https://www.youtube.com/watch?v=wFJ3PZuAjK4}{Oblivion Crisis (3E 433)}};
+      % Era boundaries: x position / link / event / date
+      \foreach \x/\url/\event/\when in {
+          2.7/{https://en.uesp.net/wiki/Lore:Camoran_Dynasty}/Camoran Dynasty founded/{1E 0},
+          5.7/{https://en.uesp.net/wiki/Lore:Reman_III}/Reman III assassinated/{1E 2920},
+          8.7/{https://en.uesp.net/wiki/Lore:Tiber_Septim}/Tiber Septim unites Tamriel/{2E 896},
+          11.7/{https://www.youtube.com/watch?v=wFJ3PZuAjK4}/Oblivion Crisis/{3E 433}}
+        {
+          \draw[thick, dashed, ember] (\x,-0.25) -- (\x,0.95);
+          \node[above, font=\scriptsize\bfseries, text=ember, text width=2.4cm, align=center] at (\x,0.95)
+          {\href{\url}{\event\\(\when)\,\linkarrow}};
+        }
     \end{tikzpicture}
   \end{center}
-  \vspace{1em}
+  \vspace{-0.4em}
   \begin{itemize}
-    \item Dates are written like \alert{1E 700} = year 700 of the First Era.
-    \item Eras reset at big turning points, so ``older'' is not just ``smaller number.''
-          Merethic dates even count \emph{down}: \alert{ME 1000} is older than ME 1.
-    \item In-game sources often \emph{disagree} about dates. So do real ones.
+    % \item Dates are written like \alert{1E 700} = year 700 of the First Era. \pause
+    \item Eras reset at big turning points \pause
+          % \item[] \hspace{2 em} {\small Merethic dates count \emph{down}: \alert{ME 1000} is older than ME 1.} \pause
+    \item In-game sources often disagree about dates. (\textbf{so do real ones}.)
+    \item[] \hspace{2 em} {\small ``The Council has collected texts and accounts from all of its provinces, and they only offer stories that never coincide, save on one point.''}
   \end{itemize}
-  \vfill
-  {\small\color{stone}Asked who wrote the Elder Scrolls, the College librarian replies:
-    \emph{``It would take a month to explain to you how that very question doesn't even make sense.''}
-    --- Urag gro-Shub}
 \end{frame}
 
 % ------------------------------------------------------------------
-\eracard{saarthal}{the College's dig at Saarthal}{MERETHIC ERA \textperiodcentered{} c.\ ME 1000}
-  {``Ysgramor was the hero who started the Companions. Wuuthrad was his weapon. He came from the ancient homeland and killed all the elves. But not all of them, because some of them are still here.''}
-  {Farkas of the Companions, who still keep Ysgramor's tomb, 4E 201}
+\begin{inverted}
+  \begin{frame}{Middle Merethic Era ($\sim$ ME 1000)}
+    \erashot[via Pinterest]{merethic}
+    \eracaption{Chantry of Auri-El (Northwestern Skyrim)}
+    \eraquote{``Our empire had temples to some of the other deities... But those temples paled in comparison to the glory of the Chantry and its wayshrines''}
+    { Knight-Paladin Gelebor }
+  \end{frame}
+\end{inverted}
 
 % ------------------------------------------------------------------
-\begin{frame}{Merethic Era: the first footprints}
-  \begin{columns}[T]
-    \begin{column}{0.58\textwidth}
-      \begin{itemize}
-        \item<1-> {\color<2->{stone}Skyrim settled by the \textbf{elves} first: the Snow Elves (Falmer).}
-        \item<2-> {\color<3->{stone}\textbf{c.\ ME 1000}: humans from \textbf{Atmora}, a frozen continent to the north, settle at \textbf{Saarthal}.}
-        \item<3-> {\color<4->{stone}The elves destroy Saarthal: the \alert<3>{Night of Tears}.}
-        \item<4-> {\color<5->{stone}\textbf{Ysgramor} returns with the \textbf{Five Hundred Companions} and reclaims Skyrim.}
-        \item<5-> {\color<6->{stone}Nords inhabit the space for (at least) the next 4500 years.}
-        \item<6-> {\color{red} Are the Nords now indigenous?}
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.38\textwidth}
-      \small
-      \textbf{Sites from this layer}\\[0.3em]
-      \emph{Nord:} Saarthal\\
-      Ysgramor's Tomb\\
-      Yngol Barrow\\
-      Windhelm: the Palace of the Kings\\
-      Whiterun: Jorrvaskr \& the Skyforge\\[0.3em]
-      \emph{Snow Elf:} the Forgotten Vale\\[1em]
-      \color{stone} How much of a founding legend should we believe?
-    \end{column}
-  \end{columns}
+\begin{frame}{Merethic Era: the First Footprints}
+  % \begin{columns}[T]
+  % \begin{column}{0.58\textwidth}
+  \begin{itemize}
+    \item<1-> {\color<2->{stone}Skyrim first settled by \textbf{Snow Elves} (Falmer).}
+    \item<2-> {\color<3->{stone}Humans from \textbf{Atmora}, a frozen continent to the north, settle at Saarthal.}
+    \item<3-> {\color<4->{stone}The elves destroy Saarthal: the \alert<3>{Night of Tears}.}
+    \item<4-> {\color<5->{stone}\textbf{Ysgramor} returns with the \textbf{Five Hundred Companions} and reclaims Skyrim.}
+    \item<5-> {\color<6->{stone}Nords inhabit the space for (at least) the next 4500 years.}
+    \item<6-> {\color{red} \textbf{Who is indigenous to Skyrim?}}
+  \end{itemize}
 \end{frame}
 
 % ------------------------------------------------------------------
-\eracard{dragon-priest}{Morokei, dragon priest of Labyrinthian}{MERETHIC ERA \textperiodcentered{} THE DRAGON CULT}
-  {{\normalfont\dovah{NIVÃRÏN MUZ FEN SÏV NID ÄZ HET}}\\[0.2em]
-   ``Nivahriin muz fen siiv nid aaz het.''\\[0.2em]
-   {\normalsize\upshape Cowardly men will find no mercy here.}}
-  {Morokei, dragon priest of Labyrinthian, still awake in 4E 201}
+\begin{inverted}
+  \begin{frame}{Late Merethic Era: the Dragon Cult}
+    \erashot{dragon-priest}
+    \eracaption{Morokei, dragon priest of Labyrinthian}
+    \eraquote{``Dragons, of course, could not be bothered with actually ruling.''}
+    {Torhal Bjorik, \emph{The Dragon War}}
+  \end{frame}
+\end{inverted}
+
+\begin{inverted}
+  \begin{frame}{Late Merethic Era: the Dragon Cult}
+    \erashot{morokei-mask}
+    \eracaption{Morokei's dragon priest mask}
+    \eraquote[\footnotesize]{\ldots{}whose frown,\\
+      And wrinkled lip, and sneer of cold command,\\
+      Tell that its sculptor well those passions read\\
+      Which yet survive, stamped on these lifeless things\ldots}
+    {Percy Bysshe Shelley, \emph{Ozymandias} (IRL)}
+  \end{frame}
+\end{inverted}
 
 % ------------------------------------------------------------------
-\begin{frame}{Merethic Era: the Dragon Cult}
+\begin{frame}{Late Merethic Era: the Dragon Cult}
   \begin{columns}[T]
     \begin{column}{0.58\textwidth}
       \begin{itemize}
         \item Before recorded history, \textbf{dragons} rule the Nords, and are worshipped as gods.
-        \item \textbf{Dragon priests} rule in their name from \textbf{Bromjunaar}, behind masks of metal.
+        \item \textbf{Dragon priests} rule in their name, behind masks of metal.
         \item The faithful dead go into \alert{barrows}, and rise as \textbf{draugr} to guard them.
         \item The dragons' words are cut into \textbf{Word Walls}. Read one, and you learn to Shout.
       \end{itemize}
@@ -194,67 +242,45 @@
 \end{frame}
 
 % ------------------------------------------------------------------
-\eracard{paarthurnax}{Paarthurnax on the summit of the Throat of the World}{THE DRAGON WAR \textperiodcentered{} LATE MERETHIC ERA}
-  {``What is better --- to be born good, or to overcome your evil nature through great effort?''}
-  {Paarthurnax, once Alduin's lieutenant, who switched sides and taught men to Shout}
+\begin{inverted}
+  \begin{frame}{Late Merethic Era: the Dragon War}
+    \erashot{alduins-wall}
+    \eracaption{Alduin's Wall, Sky Haven Temple}
+    \eraquote{``What is better --- to be born good, or to overcome your evil nature through great effort?''}
+    {Paarthurnax, once Alduin's lieutenant, who switched sides and taught men to Shout}
+  \end{frame}
+\end{inverted}
 
 % ------------------------------------------------------------------
 \begin{frame}{The Dragon War: end of the Merethic Era}
   \begin{itemize}
-    \item Late in the Merethic Era, the Nords rise against their dragon gods.
-    \item A dragon, \textbf{Paarthurnax}, breaks ranks and teaches them the \textbf{Thu'um} (the Voice). Men learn to Shout back.
-    \item \textbf{Alduin}, the World-Eater, cannot be killed. On the \textbf{Throat of the World}, heroes use an Elder Scroll to cast him out of time.
-    \item The Dragon Cult does not vanish overnight: holdouts survive \emph{into the First Era}. \alert{Forelhost} falls only c.\ \textbf{1E 140}.
+    \item Late in the Merethic Era, the Nords rise against their dragon overlords. \pause
+    \item A dragon, \textbf{Paarthurnax}, breaks ranks and teaches them the \textbf{Thu'um} (the Voice). \pause
+          % \item \textbf{Alduin}, the World-Eater, cannot be killed. On the \textbf{Throat of the World}, heroes use an Elder Scroll to cast him out of time. \pause
+    \item The Dragon Cult does not vanish overnight. Holdouts survive into the First Era.
+    \item[] \hspace{2 em} {\small \alert{Forelhost} falls only c.\ \textbf{1E 140}.} \pause
   \end{itemize}
   \vfill
   \begin{block}{Why this matters for a barrow}
-    The tombs we explore were built by a religion that \emph{lost}. Who keeps a tomb going when its builders' world is gone?
+    The tombs we explore were built by historical \textbf{losers}.
+    \begin{itemize}
+      \item Who keeps a tomb going when its builders are gone?
+      \item Why hasn't it been destroyed?
+    \end{itemize}
+
   \end{block}
   \stillhere{Paarthurnax still sits on the summit. And Alduin's exile is running out.}
 \end{frame}
 
 % ------------------------------------------------------------------
-\eracard{high-hrothgar}{High Hrothgar, home of the Greybeards}{FIRST ERA \textperiodcentered{} 1E 1 -- 1E 2920}
-  {``Dovahkiin!'' \quad {\normalfont\dovah{DOVÃKÏN}}}
-  {the Greybeards, keepers of Jurgen Windcaller's Way of the Voice, Shouting from High Hrothgar so all Skyrim hears}
-
-% ------------------------------------------------------------------
-\begin{frame}{First Era: kings, elves, and dwarves}
-  \begin{itemize}
-    \item \textbf{1E 143}: \textbf{King Harald}, the first historical king of the Nords, unites Skyrim. His successors push its borders into Cyrodiil, Morrowind, and High Rock.
-    \item The \textbf{Dwemer} (``dwarves,'' really elves) build vast underground cities, and enslave and blind the Snow Elves, who become today's \textbf{Falmer}.
-    \item \alert{1E 700}: Battle of Red Mountain. The Dwemer \emph{disappear}, all of them, all at once.
-    \item \textbf{Jurgen Windcaller} survives defeat there and founds the \textbf{Way of the Voice}: the Thu'um is for meditation, not war. His followers become the \textbf{Greybeards}.
-  \end{itemize}
-  \vfill
-  {\small\color{stone}Dwemer ruins are a whole other class. Today: Nords only.}
-  \stillhere{the Greybeards still meditate on High Hrothgar, and the Falmer still hunt in the dark below.}
-\end{frame}
-
-% ------------------------------------------------------------------
-\eracard{talos-shrine}{Heimskr preaching at the statue of Talos in Whiterun}{SECOND \& THIRD ERAS \textperiodcentered{} THE SEPTIM EMPIRE}
-  {``Talos the Mighty! Talos the Unerring! Talos the Unassailable!''}
-  {Heimskr, preaching in Whiterun's square, 4E 201, to the Nord who became a god --- and whom the Empire has now banned}
-
-% ------------------------------------------------------------------
-\begin{frame}{Second and Third Eras: Skyrim inside an empire}
-  \begin{itemize}
-    \item After the fractured \textbf{Interregnum} (from 2E 430), \textbf{Tiber Septim} (a Nord, by some accounts) unites Tamriel in \textbf{2E 896}; the Third Era starts the next year.
-    \item Legend says the Greybeards recognized him by his Thu'um, a link back to the dragon past.
-    \item The \textbf{Septim Empire} lasts the whole Third Era. Its coin, the \alert{septim}, ends up everywhere.
-    \item \textbf{3E 433}: the Oblivion Crisis ends the Septim line. The Fourth Era begins.
-  \end{itemize}
-  \vfill
-  \begin{block}{Remember the coin}
-    Septims did not exist before this empire. If one is lying in a tomb, someone put it there \emph{later}.
-  \end{block}
-  \stillhere{septims in every purse, and Talos worshipped in secret.}
-\end{frame}
-
-% ------------------------------------------------------------------
-\eracard{stormcloak-battle}{Stormcloaks storming Solitude}{FOURTH ERA \textperiodcentered{} 4E 201}
-  {``My ancestors are smiling at me, Imperial. Can you say the same?''}
-  {a Stormcloak soldier, mid-battle, in a civil war fought over the past}
+\begin{inverted}
+  \begin{frame}{Fourth Era: 4E 201}
+    \erashot{stormcloak-battle}
+    \eracaption{Stormcloaks storming Solitude}
+    \eraquote{``My ancestors are smiling at me, Imperial. Can you say the same?''}
+    {a Stormcloak soldier, mid-battle, in a civil war fought over the past}
+  \end{frame}
+\end{inverted}
 
 % ------------------------------------------------------------------
 \begin{frame}{Fourth Era: the still-sodden battlefields}
@@ -299,15 +325,21 @@
 
 % ------------------------------------------------------------------
 \begin{frame}{The archaeologist's toolkit}
-  \begin{description}[Terminus post quem]
-    \item[Superposition] Lower layers are usually older than the ones above them.
-    \item[Terminus post quem] A layer is no older than the newest object in it.\\
-          {\small\color{stone}(A septim on the floor means ``Third Era or later.'')}
-    \item[Reuse] Later people move into old places for new reasons.
-    \item[Disturbance] Animals, looters, and visitors mix the layers up.
-    \item[Provenance] Where has this object been since it was made?
-    \item[Text vs.\ object] Inscriptions and journals can inform, or lie.
+  \begin{description}[Original horizontality]
+    \item[Superposition] In a sequence of layers, the lowest is the oldest and the highest is the youngest.
+          {\small\color{stone}(Steno, 1669)}
+    \item[Original horizontality] Layers are laid down (nearly) flat. A tilted or folded layer was moved \emph{after} it was deposited.
+          {\small\color{stone}(Steno, 1669)}
+    \item[Association] Objects found together in an undisturbed context, like a sealed grave, were deposited at the same time.
+          {\small\color{stone}(Worsaae, 1843)}
+    \item[Terminus post quem] A layer is no older than the newest object in it, \alert{but only if it is sealed}.
+          {\small\color{stone}(A septim on an open floor only dates the last visitor.)}
+    \item[Terminus ante quem] Anything sealed beneath a dated layer is older than that layer.
+          {\small\color{stone}(Under a dated rockfall means before the rockfall.)}
   \end{description}
+  \vfill
+  {\tiny\color{stone}Steno's principles as stated by the
+    \href{https://www.nps.gov/articles/geologic-principles-superposition-and-original-horizontality.htm}{National Park Service\,\linkarrow}}
 \end{frame}
 
 % ------------------------------------------------------------------
@@ -321,6 +353,61 @@
     2. \textbf{What} is it meant to convey?            \\[0.3em]
     3. \textbf{What has happened} to it since?
   \end{tabular}
+\end{frame}
+
+% ==================================================================
+% Appendix: clicked into from the era names on the calendar slide.
+\appendix
+\setbeamertemplate{footline}{%
+  \hfill\hyperlink{calendar}{\beamerreturnbutton{Back to the calendar}}\hspace*{0.8em}\vspace*{0.5em}}
+
+% ------------------------------------------------------------------
+\begin{inverted}
+  \begin{frame}[label=app-first]{First Era: 1E 1 -- 1E 2920}
+    \erashot{high-hrothgar}
+    \eracaption{High Hrothgar, home of the Greybeards}
+    \eraquote{``Dovahkiin!'' \quad {\normalfont\dovah{DOVÃKÏN}}}
+    {the Greybeards, keepers of Jurgen Windcaller's Way of the Voice, Shouting from High Hrothgar so all Skyrim hears}
+  \end{frame}
+\end{inverted}
+
+% ------------------------------------------------------------------
+\begin{frame}{First Era: kings, elves, and dwarves}
+  \begin{itemize}
+    \item \textbf{1E 143}: \textbf{King Harald}, the first historical king of the Nords, unites Skyrim. His successors push its borders into Cyrodiil, Morrowind, and High Rock. \pause
+    \item The \textbf{Dwemer} (``dwarves,'' really elves) build vast underground cities, and enslave and blind the Snow Elves, who become today's \textbf{Falmer}. \pause
+    \item \alert{1E 700}: Battle of Red Mountain. The Dwemer \emph{disappear}, all of them, all at once. \pause
+    \item \textbf{Jurgen Windcaller} survives defeat there and founds the \textbf{Way of the Voice}: the Thu'um is for meditation, not war. His followers become the \textbf{Greybeards}.
+  \end{itemize}
+  \vfill
+  {\small\color{stone}Dwemer ruins are a whole other class. Today: Nords only.}
+  \stillhere{the Greybeards still meditate on High Hrothgar, and the Falmer still hunt in the dark below.}
+\end{frame}
+
+% ------------------------------------------------------------------
+\begin{inverted}
+  \begin{frame}[label=app-second]{Second \& Third Eras: the Septim Empire}
+    \erashot{talos-shrine}
+    \eracaption{Heimskr preaching at the statue of Talos in Whiterun}
+    \eraquote{``Talos the Mighty! Talos the Unerring! Talos the Unassailable!''}
+    {Heimskr, preaching in Whiterun's square, 4E 201, to the Nord who became a god --- and whom the Empire has now banned}
+  \end{frame}
+\end{inverted}
+
+% ------------------------------------------------------------------
+\begin{frame}{Second and Third Eras: Skyrim inside an empire}
+  \begin{itemize}
+    \item Two empires came first: the \textbf{First} (Alessian, 1E 243) and the \textbf{Second} (Reman, 1E 2703), which runs into the Second Era under Akaviri Potentates.
+    \item \textbf{2E 430}: the last Potentate is murdered and the \textbf{Interregnum} begins. \textbf{Tiber Septim} (a Nord, by some accounts) declares the \textbf{Third Empire} in 2E 854 and unites Tamriel in \textbf{2E 896}.
+    \item Legend says the Greybeards recognized him by his Thu'um, a link back to the dragon past.
+    \item The \textbf{Septim Empire} lasts the whole Third Era. Its coin, the \alert{septim}, ends up everywhere.
+    \item \textbf{3E 433}: the Oblivion Crisis ends the Septim line. The Fourth Era begins.
+  \end{itemize}
+  \vfill
+  \begin{block}{Remember the coin}
+    Septims did not exist before this empire. If one is lying in a tomb, someone put it there \emph{later}.
+  \end{block}
+  \stillhere{septims in every purse, and Talos worshipped in secret.}
 \end{frame}
 
 \end{document}
