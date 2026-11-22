@@ -1,0 +1,24 @@
+% !TEX program = xelatex
+%% Pre-rendered dragon-alphabet strings for intro-slides.tex, one per page,
+%% so the deck itself still builds with pdflatex. Rebuild this file with
+%% xelatex (in this folder: xelatex runes.tex) after adding or changing a line,
+%% and use the new page number in \dovah{<page>} in the deck.
+%% Font: Pixel Sagas "Dovahkiin" (../fonts). Letters map to single runes;
+%% digraph runes sit on accented capitals:
+%% Ã=ah Ä=aa È=ei Ë=ey Î=ir Ï=ii Ö=oo Ù=ur Ü=uu
+\documentclass{article}
+\usepackage{fontspec}
+\newfontfamily\dragonfont{Dovahkiin.ttf}[Path=../fonts/]
+\hoffset=-1in \voffset=-1in
+% Each \rune becomes one page cropped to the text. The strut gives every page
+% the same height and depth, so \dovah can scale and align them like text.
+\newsavebox\runebox
+\newcommand{\rune}[1]{%
+  \sbox\runebox{\dragonfont\strut #1}%
+  \pdfpagewidth=\wd\runebox
+  \pdfpageheight=\dimexpr\ht\runebox+\dp\runebox\relax
+  \shipout\hbox{\usebox\runebox}}
+\begin{document}
+\rune{NIVÃRÏN MUZ FEN SÏV NID ÄZ HET} % page 1: Morokei
+\rune{DOVÃKÏN}                         % page 2: Dovahkiin
+\end{document}
