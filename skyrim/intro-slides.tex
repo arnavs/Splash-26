@@ -37,6 +37,9 @@
 \usepackage{fontspec}
 \newfontfamily\dragonfont{Dovahkiin.ttf}[Path=fonts/]
 \newcommand{\dovah}[1]{{\dragonfont #1}}
+%% Daedric alphabet (Pixel Sagas "Daedra" font, same freeware licence; fonts/Daedra-LICENSE.txt).
+\newfontfamily\daedricfont{Daedra.otf}[Path=fonts/]
+\newcommand{\daedric}[1]{{\daedricfont #1}}
 
 %% Era slides: ordinary frames on an inverted (dark) background with a small white
 %% Imperial emblem in the top right (images/imperial-emblem-white.png). Use as
@@ -64,13 +67,15 @@
   \usebeamercolor[fg]{normal text}}{}
 % \erashot[credit]{image}: the screenshot, centred (credit defaults to UESP).
 % Missing image file -> a labelled placeholder box.
+% image height on era slides; override inside a frame with \renewcommand{\erashotheight}{...}
+\newcommand{\erashotheight}{0.56\textheight}
 \newsavebox{\erashotbox}
 \newcommand{\erashotcredit}{}
 \newcommand{\erashot}[2][UESP]{%
   \renewcommand{\erashotcredit}{#1}%
-  \IfFileExists{images/#2.jpg}{\sbox{\erashotbox}{\includegraphics[width=\textwidth, height=0.56\textheight, keepaspectratio]{images/#2.jpg}}}{%
-  \IfFileExists{images/#2.png}{\sbox{\erashotbox}{\includegraphics[width=\textwidth, height=0.56\textheight, keepaspectratio]{images/#2.png}}}{%
-  \IfFileExists{images/#2.pdf}{\sbox{\erashotbox}{\includegraphics[width=\textwidth, height=0.56\textheight, keepaspectratio]{images/#2.pdf}}}{%
+  \IfFileExists{images/#2.jpg}{\sbox{\erashotbox}{\includegraphics[width=\textwidth, height=\erashotheight, keepaspectratio]{images/#2.jpg}}}{%
+  \IfFileExists{images/#2.png}{\sbox{\erashotbox}{\includegraphics[width=\textwidth, height=\erashotheight, keepaspectratio]{images/#2.png}}}{%
+  \IfFileExists{images/#2.pdf}{\sbox{\erashotbox}{\includegraphics[width=\textwidth, height=\erashotheight, keepaspectratio]{images/#2.pdf}}}{%
   \sbox{\erashotbox}{\fcolorbox{stone}{white!8!black}{\parbox[c][0.5\textheight][c]{0.8\textwidth}{\centering\small\color{stone}
     \textbf{Screenshot missing}\\[0.2em]{\scriptsize\ttfamily images/#2.jpg}}}}}}}%
   \par\vspace{0.4em}{\centering\usebox{\erashotbox}\par}}
@@ -88,6 +93,18 @@
   \par\vspace{0.2em}{\centering#1
     \textbf{#2}\\[0.3em]
     {\small -- #3}\par}}
+% \collagetile[yshift]{image file}{caption}: one cropped tile of a 2x2 collage.
+% The image fills the tile width and is cropped top/bottom; yshift nudges it.
+\newlength{\tileW}\setlength{\tileW}{0.44\textwidth}
+\newlength{\tileH}\setlength{\tileH}{0.34\textheight}
+\newcommand{\collagetile}[3][0pt]{%
+  \begin{minipage}[t]{\tileW}\centering
+    \begin{tikzpicture}
+      \clip (0,0) rectangle (\tileW,\tileH);
+      \node[inner sep=0, yshift=#1] at (0.5\tileW,0.5\tileH) {\includegraphics[width=\tileW]{images/#2}};
+    \end{tikzpicture}\\[-0.2em]
+    {\scriptsize #3}
+  \end{minipage}}
 % Closing line on a history slide: where this past is still alive in 4E 201.
 \newcommand{\stillhere}[1]{\par\vfill{\small\textbf{\color{ember}Still here in 4E 201:} #1}}
 
@@ -131,6 +148,20 @@
 \end{frame}
 
 % ------------------------------------------------------------------
+\begin{frame}{Tamriel}
+  \renewcommand{\erashotheight}{0.8\textheight}
+  \erashot[UESP (\emph{Anthology} map)]{tamriel-map}
+  \eracaption{Tamriel and its Constituent Provinces}
+\end{frame}
+
+% ------------------------------------------------------------------
+\begin{frame}{Skyrim}
+  \renewcommand{\erashotheight}{0.8\textheight}
+  \erashot[Reddit]{skyrim-map}
+  \eracaption{Skyrim's World Map}
+\end{frame}
+
+% ------------------------------------------------------------------
 \begin{frame}[label=calendar]{The calendar of Tamriel}
   \begin{center}
     \begin{tikzpicture}[x=0.9cm,y=1cm]
@@ -163,9 +194,7 @@
   \end{center}
   \vspace{-0.4em}
   \begin{itemize}
-    % \item Dates are written like \alert{1E 700} = year 700 of the First Era. \pause
     \item Eras reset at big turning points \pause
-          % \item[] \hspace{2 em} {\small Merethic dates count \emph{down}: \alert{ME 1000} is older than ME 1.} \pause
     \item In-game sources often disagree about dates. (\textbf{so do real ones}.)
     \item[] \hspace{2 em} {\small ``The Council has collected texts and accounts from all of its provinces, and they only offer stories that never coincide, save on one point.''}
   \end{itemize}
@@ -183,14 +212,12 @@
 
 % ------------------------------------------------------------------
 \begin{frame}{Merethic Era: the First Footprints}
-  % \begin{columns}[T]
-  % \begin{column}{0.58\textwidth}
   \begin{itemize}
     \item<1-> {\color<2->{stone}Skyrim first settled by \textbf{Snow Elves} (Falmer).}
     \item<2-> {\color<3->{stone}Humans from \textbf{Atmora}, a frozen continent to the north, settle at Saarthal.}
     \item<3-> {\color<4->{stone}The elves destroy Saarthal: the \alert<3>{Night of Tears}.}
     \item<4-> {\color<5->{stone}\textbf{Ysgramor} returns with the \textbf{Five Hundred Companions} and reclaims Skyrim.}
-    \item<5-> {\color<6->{stone}Nords inhabit the space for (at least) the next 4500 years.}
+    \item<5-> {\color<6->{stone}Nords inhabit the space for (at least) the next 4,450 years.}
     \item<6-> {\color{red} \textbf{Who is indigenous to Skyrim?}}
   \end{itemize}
 \end{frame}
@@ -222,10 +249,10 @@
   \begin{columns}[T]
     \begin{column}{0.58\textwidth}
       \begin{itemize}
-        \item Before recorded history, \textbf{dragons} rule the Nords, and are worshipped as gods.
-        \item \textbf{Dragon priests} rule in their name, behind masks of metal.
+        \item Before recorded history, immortal dragons rule the Nords, who worship them as gods.
+        \item \textbf{Dragon priests} rule in their name.
         \item The faithful dead go into \alert{barrows}, and rise as \textbf{draugr} to guard them.
-        \item The dragons' words are cut into \textbf{Word Walls}. Read one, and you learn to Shout.
+        \item The dragons' verbal weapons are cut into \textbf{Word Walls}. Read one, and you learn to Shout.
       \end{itemize}
     \end{column}
     \begin{column}{0.38\textwidth}
@@ -235,7 +262,7 @@
       Claw doors \& puzzle pillars\\
       Draugr in burial alcoves\\
       Word Walls at the deepest point\\[1em]
-      \color{stone}\emph{This is the main layer we'll dig through today.}
+      \color{red}\emph{\textbf{This is the main layer we'll dig through today}.}
     \end{column}
   \end{columns}
   \stillhere{the draugr are still on guard. Walk in, and they wake up.}
@@ -246,8 +273,11 @@
   \begin{frame}{Late Merethic Era: the Dragon War}
     \erashot{alduins-wall}
     \eracaption{Alduin's Wall, Sky Haven Temple}
-    \eraquote{``What is better --- to be born good, or to overcome your evil nature through great effort?''}
-    {Paarthurnax, once Alduin's lieutenant, who switched sides and taught men to Shout}
+    \eraquote[\footnotesize]{And so the Tongues freed us from Alduin's rage \\
+      Gave the gift of the Voice, ushered in a new Age \\
+      And if Alduin's eternal, then eternity's done \\
+      For his story is over and the dragons\dots are gone}
+    {\emph{Tale of the Tongues}}
   \end{frame}
 \end{inverted}
 
@@ -256,7 +286,6 @@
   \begin{itemize}
     \item Late in the Merethic Era, the Nords rise against their dragon overlords. \pause
     \item A dragon, \textbf{Paarthurnax}, breaks ranks and teaches them the \textbf{Thu'um} (the Voice). \pause
-          % \item \textbf{Alduin}, the World-Eater, cannot be killed. On the \textbf{Throat of the World}, heroes use an Elder Scroll to cast him out of time. \pause
     \item The Dragon Cult does not vanish overnight. Holdouts survive into the First Era.
     \item[] \hspace{2 em} {\small \alert{Forelhost} falls only c.\ \textbf{1E 140}.} \pause
   \end{itemize}
@@ -274,39 +303,73 @@
 
 % ------------------------------------------------------------------
 \begin{inverted}
-  \begin{frame}{Fourth Era: 4E 201}
-    \erashot{stormcloak-battle}
-    \eracaption{Stormcloaks storming Solitude}
-    \eraquote{``My ancestors are smiling at me, Imperial. Can you say the same?''}
-    {a Stormcloak soldier, mid-battle, in a civil war fought over the past}
+  \begin{frame}{Third Era: the Septim Empire}
+    \erashot[Elder Scrolls Wiki]{talos-temple}
+    \eracaption{Temple of Talos, Windhelm}
+    \eraquote{``Ere you ascended and the Eight became Nine, you walked among us, great Talos, not as god, but as man!''}
+    {Heimskr (Priest of Talos in Whiterun)}
   \end{frame}
 \end{inverted}
 
 % ------------------------------------------------------------------
-\begin{frame}{Fourth Era: the still-sodden battlefields}
-  \begin{columns}[T]
-    \begin{column}{0.55\textwidth}
-      \begin{itemize}
-        \item \textbf{4E 5}: Red Mountain erupts (the Red Year).
-        \item \textbf{4E 171--175}: the \textbf{Great War} with the elven Aldmeri Dominion.
-        \item The peace treaty (the \textbf{White-Gold Concordat}) \alert{bans worship of Talos}, the god Tiber Septim became.
-        \item \textbf{4E 201}: Ulfric Stormcloak kills the High King with his Voice. Civil war.
-        \item And the dragons come back.
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.41\textwidth}
-      \small
-      \textbf{Imperials}\\
-      Keep the Empire together; accept the treaty.\\[0.6em]
-      \textbf{Stormcloaks}\\
-      Skyrim for the Nords; restore Talos.\\[1em]
-      \color{stone}\emph{Both sides raid ancient tombs for symbols of legitimacy. (See: the Jagged Crown.)}
-    \end{column}
-  \end{columns}
-\end{frame}
+\begin{inverted}
+  \begin{frame}{Fourth Era: Refugees' Rest (4E 20)}
+    \erashot{refugees-rest}
+    \eracaption{Refugees' Rest, east of Windhelm on the road to Morrowind}
+    \eraquote[\small]{``This tower once served as a meeting place where those brave souls who achieved safe passage to Skyrim would find loved ones, and leave notice for others who could not be found.''}
+    {the Jarls of Skyrim, \emph{Decree of Monument}, 4E 20}
+  \end{frame}
+\end{inverted}
 
 % ------------------------------------------------------------------
-\begin{frame}{4,000 years, stacked}
+\begin{inverted}
+  \begin{frame}{Fourth Era: 4E 201 (Present Day)}
+    \renewcommand{\erashotheight}{0.68\textheight}
+    \erashot{stormcloak-battle}
+    \eracaption{Stormcloaks Assaulting Solitude}
+    \eraquote{``My ancestors are smiling at me, Imperial. Can you say the same?''}
+    {a Stormcloak soldier, mid-battle}
+  \end{frame}
+\end{inverted}
+
+% ------------------------------------------------------------------
+% \begin{frame}{Fourth Era: the Bloody Snows}
+%   \begin{columns}[T]
+%     \begin{column}{0.55\textwidth}
+%       \begin{itemize}
+%         \item \textbf{4E 5}: Red Mountain erupts (the Red Year).
+%         \item \textbf{4E 171--175}: the \textbf{Great War} with the elven Aldmeri Dominion.
+%         \item The peace treaty (the \textbf{White-Gold Concordat}) \alert{bans worship of Talos}, the god Tiber Septim became.
+%         \item \textbf{4E 201}: Ulfric Stormcloak kills the High King with his Voice. Civil war.
+%         \item And the dragons come back.
+%       \end{itemize}
+%     \end{column}
+%     \begin{column}{0.41\textwidth}
+%       \small
+%       \textbf{Imperials}\\
+%       Keep the Empire together; accept the treaty.\\[0.6em]
+%       \textbf{Stormcloaks}\\
+%       Skyrim for the Nords; restore Talos.\\[1em]
+%       \color{stone}\emph{Both sides raid ancient tombs for symbols of legitimacy. (See: the Jagged Crown.)}
+%     \end{column}
+%   \end{columns}
+% \end{frame}
+
+% ------------------------------------------------------------------
+\begin{inverted}
+  \begin{frame}{The Beauty of Dawn (aka \daedric{Tamriel})}
+    \centering
+    \collagetile{bannered-mare.jpg}{The Bannered Mare, Whiterun}\hspace{1em}%
+    \collagetile{markarth.jpg}{Markarth (Nordic City, built on Dwemer Ruins)}\\[0.5em]
+    \collagetile[-0.45cm]{shrine-of-azura.jpg}{Shrine of Azura}\hspace{1em}%
+    \collagetile{college-winterhold.png}{College of Winterhold}
+    \par\vfill
+    {\tiny\color{stone}Images: UESP; Shrine of Azura and College of Winterhold (\emph{Legends} card art): Elder Scrolls Wiki}
+  \end{frame}
+\end{inverted}
+
+% ------------------------------------------------------------------
+\begin{frame}{4,450+ years, stacked}
   \begin{center}
     \begin{tikzpicture}[
         layer/.style={draw=frost, minimum width=9cm, minimum height=0.72cm, font=\small, align=center},
@@ -326,16 +389,15 @@
 % ------------------------------------------------------------------
 \begin{frame}{The archaeologist's toolkit}
   \begin{description}[Original horizontality]
-    \item[Superposition] In a sequence of layers, the lowest is the oldest and the highest is the youngest.
-          {\small\color{stone}(Steno, 1669)}
+    \item[Superposition] Layers get older as we go down a sequence.
+            {\small\color{stone}(Steno, 1669)}
     \item[Original horizontality] Layers are laid down (nearly) flat. A tilted or folded layer was moved \emph{after} it was deposited.
-          {\small\color{stone}(Steno, 1669)}
+            {\small\color{stone}(Steno, 1669)}
     \item[Association] Objects found together in an undisturbed context, like a sealed grave, were deposited at the same time.
-          {\small\color{stone}(Worsaae, 1843)}
-    \item[Terminus post quem] A layer is no older than the newest object in it, \alert{but only if it is sealed}.
-          {\small\color{stone}(A septim on an open floor only dates the last visitor.)}
+            {\small\color{stone}(Worsaae, 1843)}
+    \item[Terminus post quem] A layer is no older than the newest object in it.
+    \item[]     \textbf{\small         \alert{But only if it is sealed}.}
     \item[Terminus ante quem] Anything sealed beneath a dated layer is older than that layer.
-          {\small\color{stone}(Under a dated rockfall means before the rockfall.)}
   \end{description}
   \vfill
   {\tiny\color{stone}Steno's principles as stated by the
@@ -354,6 +416,11 @@
     3. \textbf{What has happened} to it since?
   \end{tabular}
 \end{frame}
+
+\begin{frame}{Appendices}
+  \centering
+\end{frame}
+
 
 % ==================================================================
 % Appendix: clicked into from the era names on the calendar slide.
@@ -376,7 +443,7 @@
   \begin{itemize}
     \item \textbf{1E 143}: \textbf{King Harald}, the first historical king of the Nords, unites Skyrim. His successors push its borders into Cyrodiil, Morrowind, and High Rock. \pause
     \item The \textbf{Dwemer} (``dwarves,'' really elves) build vast underground cities, and enslave and blind the Snow Elves, who become today's \textbf{Falmer}. \pause
-    \item \alert{1E 700}: Battle of Red Mountain. The Dwemer \emph{disappear}, all of them, all at once. \pause
+    \item \alert{c.\ 1E 668}: Battle of Red Mountain. The Dwemer \emph{disappear}, all of them, all at once. \pause
     \item \textbf{Jurgen Windcaller} survives defeat there and founds the \textbf{Way of the Voice}: the Thu'um is for meditation, not war. His followers become the \textbf{Greybeards}.
   \end{itemize}
   \vfill
@@ -384,18 +451,9 @@
   \stillhere{the Greybeards still meditate on High Hrothgar, and the Falmer still hunt in the dark below.}
 \end{frame}
 
-% ------------------------------------------------------------------
-\begin{inverted}
-  \begin{frame}[label=app-second]{Second \& Third Eras: the Septim Empire}
-    \erashot{talos-shrine}
-    \eracaption{Heimskr preaching at the statue of Talos in Whiterun}
-    \eraquote{``Talos the Mighty! Talos the Unerring! Talos the Unassailable!''}
-    {Heimskr, preaching in Whiterun's square, 4E 201, to the Nord who became a god --- and whom the Empire has now banned}
-  \end{frame}
-\end{inverted}
 
 % ------------------------------------------------------------------
-\begin{frame}{Second and Third Eras: Skyrim inside an empire}
+\begin{frame}[label=app-second]{Second and Third Eras: Skyrim inside an empire}
   \begin{itemize}
     \item Two empires came first: the \textbf{First} (Alessian, 1E 243) and the \textbf{Second} (Reman, 1E 2703), which runs into the Second Era under Akaviri Potentates.
     \item \textbf{2E 430}: the last Potentate is murdered and the \textbf{Interregnum} begins. \textbf{Tiber Septim} (a Nord, by some accounts) declares the \textbf{Third Empire} in 2E 854 and unites Tamriel in \textbf{2E 896}.
