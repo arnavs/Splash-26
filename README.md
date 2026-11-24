@@ -41,6 +41,6 @@ Classes for MIT Splash 2026.
 
 Some feedback: 
 
-    > Most interesting class I've ever taken
+> Most interesting class I've ever taken
 
-    > BEST CLASS EVER, MAKE HIM MAKE IT A HUGE LECTURE NEXT YEAR. 
+> BEST CLASS EVER, MAKE HIM MAKE IT A HUGE LECTURE NEXT YEAR. 
