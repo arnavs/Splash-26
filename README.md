@@ -38,3 +38,9 @@ Classes for MIT Splash 2026.
 * [Materials](nuclear/materials/)
 * [Slides](nuclear/slides/)
 * [Syllabus](nuclear/syllabus/syllabus-nuclear.pdf)
+
+Some feedback: 
+
+    > Most interesting class I've ever taken
+
+    > BEST CLASS EVER, MAKE HIM MAKE IT A HUGE LECTURE NEXT YEAR. 
