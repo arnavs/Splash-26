@@ -30,6 +30,32 @@
     \node[opacity=0.07, inner sep=0] at (current page.center)
       {\includegraphics[height=0.9\paperheight, keepaspectratio]{images/imperial-emblem.png}};
   \end{tikzpicture}}
+%% \moonsbackground{opacity}: the two moons (images/aurora_over_skyrim/IMG_5096.JPG),
+%% compass and health bars trimmed off (64px top and bottom), filling the page height.
+\newcommand{\moonsbackground}[1]{%
+  \setbeamertemplate{background}{%
+    \begin{tikzpicture}[remember picture, overlay]
+      \node[opacity=#1, inner sep=0] at (current page.center)
+        {\includegraphics[trim=0 64 0 64, clip, height=\paperheight]{images/aurora_over_skyrim/IMG_5096.JPG}};
+    \end{tikzpicture}}}
+%% Title slide: moons at 0.45, with the title and subtitle black and bold so they hold
+%% up against the aurora.
+\newcommand{\titlebackground}{%
+  \setbeamercolor{title}{fg=black}%
+  \setbeamercolor{subtitle}{fg=black}%
+  \setbeamerfont{title}{series=\bfseries}%
+  \setbeamerfont{subtitle}{series=\bfseries}%
+  \moonsbackground{0.45}}
+%% Background switch for the regular (non-title) slides:
+%%   \moonstrue  -> moons at 0.25, and dimmed `stone' text darkened so it reads on them
+%%   \moonsfalse -> faint Septim emblem and the original stone grey (RGB 110,110,105)
+%% Either way the title slide gets the moons at 0.45.
+\newif\ifmoons
+\moonstrue
+\ifmoons
+  \moonsbackground{0.25}
+  \definecolor{stone}{RGB}{80,80,76}
+\fi
 
 %% Dragon alphabet (Pixel Sagas "Dovahkiin" font; requires XeLaTeX).
 %% Letters map to single runes; digraph runes sit on accented capitals:
@@ -115,13 +141,14 @@
 
 \begin{document}
 
+{\titlebackground
 \begin{frame}
   \titlepage
   \begin{center}
     \textbf{``When a man understands the art of seeing, he can trace the spirit of an age and the features of a king even in the knocker on a door''}\\[0.3em]
     \small -- Victor Hugo
   \end{center}
-\end{frame}
+\end{frame}}
 
 \begin{frame}
   \begin{itemize}
