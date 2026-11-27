@@ -38,7 +38,7 @@
       \node[opacity=#1, inner sep=0] at (current page.center)
         {\includegraphics[trim=0 64 0 64, clip, height=\paperheight]{images/aurora_over_skyrim/IMG_5096.JPG}};
     \end{tikzpicture}}}
-%% Title slide: moons at 0.45, with the title and subtitle black and bold so they hold
+%% Title slide: moons at 0.5, with the title and subtitle black and bold so they hold
 %% up against the aurora.
 \newcommand{\titlebackground}{%
   \setbeamercolor{title}{fg=black}%
@@ -47,9 +47,9 @@
   \setbeamerfont{subtitle}{series=\bfseries}%
   \moonsbackground{0.5}}
 %% Background switch for the regular (non-title) slides:
-%%   \moonstrue  -> moons at 0.25, and dimmed `stone' text darkened so it reads on them
+%%   \moonstrue  -> moons at 0.2, and dimmed `stone' text darkened so it reads on them
 %%   \moonsfalse -> faint Septim emblem and the original stone grey (RGB 110,110,105)
-%% Either way the title slide gets the moons at 0.45.
+%% Either way the title slide gets the moons at 0.5.
 \newif\ifmoons
 \moonstrue
 \ifmoons
@@ -191,7 +191,8 @@
 % ------------------------------------------------------------------
 \begin{frame}[label=calendar]{The calendar of Tamriel}
   \begin{center}
-    \begin{tikzpicture}[x=0.9cm,y=1cm]
+    \begin{tikzpicture}[x=0.9cm,y=1cm,
+        every node/.append style={execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}}]
       \draw[very thick, frost] (0,0) -- (14.4,0);
       % x position / era / how long it lasted / what happened
       \foreach \x/\lab/\len/\sub in {
@@ -203,7 +204,7 @@
         {
           \fill[ember] (\x,0) circle (3pt);
           \node[above=4pt, font=\small\bfseries, text=frost] at (\x,0) {\lab};
-          \node[below=4pt, font=\scriptsize, text=stone, text width=2.4cm, align=center] at (\x,0)
+          \node[below=4pt, font=\scriptsize, text=stone, text width=2.6cm, align=center] at (\x,0)
           {{\bfseries\color{frost}\len}\\[0.15em]\sub};
         }
       % Era boundaries: x position / link / event / date
@@ -214,7 +215,7 @@
           11.7/{https://www.youtube.com/watch?v=wFJ3PZuAjK4}/Oblivion Crisis/{3E 433}}
         {
           \draw[thick, dashed, ember] (\x,-0.25) -- (\x,0.95);
-          \node[above, font=\scriptsize\bfseries, text=ember, text width=2.4cm, align=center] at (\x,0.95)
+          \node[above, font=\scriptsize\bfseries, text=ember, text width=2.6cm, align=center] at (\x,0.95)
           {\href{\url}{\event\\(\when)\,\linkarrow}};
         }
     \end{tikzpicture}
@@ -405,7 +406,7 @@
       \node[layer, fill=frost!8,  below=0pt of l0] (l1) {Bandits, necromancers, looters (Third--Fourth Era)};
       \node[layer, fill=frost!16, below=0pt of l1] (l2) {Skeevers \& spiders (centuries of abandonment)};
       \node[layer, fill=frost!28, below=0pt of l2] (l3) {Burial halls \& draugr (Dragon Cult, Merethic Era)};
-      \node[layer, fill=frost!42, below=0pt of l3, text=white] (l4) {Sanctum: Word Wall, sacred objects};
+      \node[layer, fill=frost!85, below=0pt of l3, text=white, font=\small\bfseries] (l4) {Sanctum: Word Wall, sacred objects};
       \draw[-{Stealth}, thick, ember] ([xshift=0.5cm]l0.east) -- node[right, font=\scriptsize, text=ember, align=left]{older\\deeper} ([xshift=0.5cm]l4.east);
     \end{tikzpicture}
   \end{center}
